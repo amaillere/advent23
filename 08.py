@@ -1,6 +1,7 @@
 import os, errno
 import pathlib
 import re
+import math
 
 
 class Cross:
@@ -10,7 +11,7 @@ class Cross:
         self.r = ""
 
 
-file_in = open("08_2.txt", 'r')
+file_in = open("08.txt", 'r')
 lines = file_in.readlines()
 instructions=lines[0].strip()
 
@@ -37,35 +38,46 @@ def allZ(vals):
     return res
     
 az = {k: v for k, v in all.items() if k.endswith("A")}
-
+values={}
 for a in az:
-    print(az[a])
+    print(a, az[a])
+    values[a]=all[a]
 
-
+def lcm(a, b):
+    return abs(a*b) // math.gcd(a, b)
 n = 0
 todo = ""
-values = az
-while not(allZ(values)) and n<2:
-    print("----")
-    if(len(todo) == 0):
-        todo=instructions
-    d=todo[0:1]
-    next={}
-    print(values)
-    for val in values:
-        if d == "L":
-            key=all[val].l
-        else:
-            key=all[val].r
+#values = az
+# while not(allZ(values)) :
+#     if(len(todo) == 0):
+#         todo=instructions
+#     d=todo[0:1]
+#     next={}
+#     n=n+1
+#     for val in values:
+#         #print(val)
+#         cross=all[values[val].key]
+#         if d == "L":
+#             nextVal=cross.l
+#         else:
+#             nextVal=cross.r
         
-        next[key]=all[key]
-    print(next)
-    values = next
-    # print(key,n)
-    todo=todo[1:]
-    n=n+1
+#         next[val]=all[nextVal]
+#         if(nextVal.endswith("Z")):
+#             print(val, nextVal, n)
+#     values = next
+#     # print(key,n)
+#     todo=todo[1:]
 total1 = n
-    
+a=13019
+a=16343
+
+a=lcm(13019,16343)
+a=lcm(a,16897)
+a=lcm(a,19667)
+a=lcm(a,20221)
+a=lcm(a,21883)
+
 print("----")
 print("answer 1 : "+str(total1))
-print("answer 2 : "+str(total2))
+print("answer 2 : "+str(a))
